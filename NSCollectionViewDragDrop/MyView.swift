@@ -30,29 +30,29 @@ import Cocoa
         layer?.addSublayer(leftArrowLayer)
     }
 
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
 
         // Drawing code here.
-        layer?.backgroundColor = NSColor.yellowColor().CGColor
+        layer?.backgroundColor = NSColor.yellow.cgColor
         
         leftArrowLayer.position = NSPoint(x: 30, y: bounds.height / 2)
     }
     
     override func prepareForInterfaceBuilder() {
-        layer?.backgroundColor = NSColor.redColor().CGColor
+        layer?.backgroundColor = NSColor.red.cgColor
     }
     
     func createArrow() -> CAShapeLayer {
-        let rect = CGRectMake(0, 0, 3, 10)
+        let rect = CGRect(x: 0, y: 0, width: 3, height: 10)
         
         let leftArrow = NSBezierPath()
-        leftArrow.moveToPoint(CGPointMake(0, 0))
-        leftArrow.lineToPoint(CGPointMake(rect.width, rect.height / 2))
-        leftArrow.lineToPoint(CGPointMake(0, rect.height))
+        leftArrow.move(to: CGPoint(x: 0, y: 0))
+        leftArrow.line(to: CGPoint(x: rect.width, y: rect.height / 2))
+        leftArrow.line(to: CGPoint(x: 0, y: rect.height))
         
         let shape = CAShapeLayer()
-        shape.strokeColor = NSColor.blueColor().CGColor
+        shape.strokeColor = NSColor.blue.cgColor
         shape.lineWidth = 2
         shape.path = leftArrow.toCGPath()
         shape.bounds = rect

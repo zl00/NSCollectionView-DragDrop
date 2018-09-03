@@ -10,8 +10,8 @@ import Cocoa
 
 class MyCollectionView: NSCollectionView {
 
-    override func deselectItemsAtIndexPaths(indexPaths: Set<NSIndexPath>) {
-        super.deselectItemsAtIndexPaths(indexPaths)
+    override func deselectItems(at indexPaths: Set<IndexPath>) {
+        super.deselectItems(at: indexPaths)
     }
     
 }

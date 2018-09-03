@@ -19,7 +19,7 @@ class MyItem: NSCollectionViewItem {
         // Image itemRootView.
         let itemRootView = self.view
         let itemBounds = itemRootView.bounds
-        let bitmap = itemRootView.bitmapImageRepForCachingDisplayInRect(itemBounds)!
+        let bitmap = itemRootView.bitmapImageRepForCachingDisplay(in: itemBounds)!
         let bitmapData = bitmap.bitmapData
         if bitmapData != nil {
             bzero(bitmapData, bitmap.bytesPerRow * bitmap.pixelsHigh)
@@ -34,17 +34,17 @@ class MyItem: NSCollectionViewItem {
         // Work around SlideCarrierView layer contents not being rendered to bitmap.
         let slideCarrierImage = NSImage(named: NSImageNameFolder)
         NSGraphicsContext.saveGraphicsState()
-        let oldContext = NSGraphicsContext.currentContext()
-        NSGraphicsContext.setCurrentContext(NSGraphicsContext(bitmapImageRep: bitmap))
-        slideCarrierImage?.drawInRect(itemBounds, fromRect: NSZeroRect, operation: .SourceOver, fraction: 1.0)
-        NSGraphicsContext.setCurrentContext(oldContext)
+        let oldContext = NSGraphicsContext.current()
+        NSGraphicsContext.setCurrent(NSGraphicsContext(bitmapImageRep: bitmap))
+        slideCarrierImage?.draw(in: itemBounds, from: NSZeroRect, operation: .sourceOver, fraction: 1.0)
+        NSGraphicsContext.setCurrent(oldContext)
         NSGraphicsContext.restoreGraphicsState()
         
         /*
         Invoke -cacheDisplayInRect:toBitmapImageRep: to render the rest of the
         itemRootView subtree into the bitmap.
         */
-        itemRootView.cacheDisplayInRect(itemBounds, toBitmapImageRep: bitmap)
+        itemRootView.cacheDisplay(in: itemBounds, to: bitmap)
         let image = NSImage(size: bitmap.size)
         image.addRepresentation(bitmap)
         
